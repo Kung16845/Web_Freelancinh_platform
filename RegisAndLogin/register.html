@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Register</title>
+		<link type="text/css" rel="stylesheet" href="style.css">
+		<script type="text/javascript" src="js/login.js"></script>
+	</head>
+	<body>
+		<div id=container>
+			<form class="form" id="myForm" action="/regisDB" method="post" accept-charset="utf-8">
+				<fieldset>
+					<legend> Register </legend>
+					Email:<input type="text" name="email" value="" placeholder="" required><br>
+					Password: <input type="password" name="password" value="" placeholder=""><br>
+					Comfirm Password: <input type="password" name="repassword" value="" placeholder=""><br>
+					ชื่อจริง: <input type="name" name="name" value="" placeholder=""><br>
+					นามสกุล: <input type="surname" name="surname" value="" placeholder=""><br>
+					เบอร์โทร: <input type="phonenumber" name="phonenumber" value="" placeholder=""><br>
+					<span id="errordisplay"></span><br>
+					<input type="submit" name="submit" value="Register">
+				</fieldset>
+			</form>
+			
+		</div>
+	
+	</body>
+</html>
