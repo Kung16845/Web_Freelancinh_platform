@@ -40,7 +40,6 @@ const queryDB = (sql) => {
 }
 
 app.post('/regisDB', async (req, res) => {
-
     let sql = "CREATE TABLE IF NOT EXISTS Userdatabase (id INT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(100),password VARCHAR(100),name VARCHAR(100),surname VARCHAR(100),phonenumber VARCHAR(10),img VARCHAR(100))";
     let result = await queryDB(sql);
 
@@ -54,15 +53,8 @@ app.post('/regisDB', async (req, res) => {
             console.log("New record created successfullyone");
             return res.redirect("login.html");
         }
-        else {
-
-            return res.redirect("register.html");
-        }
     }
-    else {
-
-        return res.redirect("register.html");
-    }
+    
 })
 
 app.post('/checkLogin', async (req, res) => {
@@ -74,7 +66,7 @@ app.post('/checkLogin', async (req, res) => {
 
     if (result.length !== 0) {
         console.log("pass");
-        res.cookie('email',email);
+        res.cookie('email', email);
         res.cookie('img', result[0].img);
         return res.status(400).send("Login success");
     }
