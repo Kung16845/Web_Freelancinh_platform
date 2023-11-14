@@ -13,16 +13,24 @@ function fetchJobData(callback) {
 }
 
 // Function to display job panels
-function displayJobPanels(jobs, numToShow = 3) {
+function displayJobPanels(jobs) {
     const jobPanels = document.getElementById('job-panels');
     jobPanels.innerHTML = ''; // Clear previous content
 
-    // Display random jobs
-    const randomJobs = getRandomJobs(jobs, numToShow);
-    randomJobs.forEach(job => {
+    jobs.forEach(job => {
         const panel = createJobPanel(job);
         jobPanels.appendChild(panel);
     });
+}
+function fetchJobData(callback) {
+    // You would typically make an API call to the server here
+    // For simplicity, let's assume the server responds with a JSON array
+
+    // For demonstration purposes, we'll fetch data from the jobs.json file
+    fetch('jobs.json')
+        .then(response => response.json())
+        .then(data => callback(data))
+        .catch(error => console.error('Error fetching job data:', error));
 }
 
 // Function to filter jobs based on ghost hunting type
@@ -30,7 +38,7 @@ function filterJobs(contactType) {
     fetchJobData(jobs => {
         // Example: Filtering jobs based on contact type
         const filteredJobs = jobs.filter(job => job.type === contactType);
-        displayLimitedJobPanels(filteredJobs, 3); // Display a maximum of 3 panels
+        displayJobPanels(filteredJobs); // Display a maximum of 3 panels
     });
 }
 
@@ -74,7 +82,7 @@ function createJobPanel(job) {
         <p>Difficulty: ${job.difficulty}</p>
         <p>Reward: ${job.Reward}</p>
         <p>Ghost Type: ${job['Ghost type']}</p>
-        <button onclick="applyForJob(${job.id})">Apply Now</button>
+        <button onclick="applyForJob(${job.id})">More!</button>
     `;
     return panel;
 }
@@ -103,6 +111,18 @@ function displayLimitedJobPanels(jobs, numToShow) {
         jobPanels.appendChild(panel);
     });
 }
+// Function to simulate applying for a job and move to the next page
+function applyForJob(jobId) {
+    // Find the job by id and perform the application logic
+    fetchJobData(jobs => {
+        const selectedJob = jobs.find(job => job.id === jobId);
+        if (selectedJob) {
+            // Move to the next page with the job details
+            window.location.href = `jobdetail.html?id=${selectedJob.id}`;
+        }
+    });
+}
+
 // Fetch and display 3 random job panels when the page is loaded
 window.onload = function () {
     fetchJobData(jobs => displayJobPanels(jobs, 3));
