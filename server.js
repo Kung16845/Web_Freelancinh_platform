@@ -13,6 +13,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, 'public/img/');
+    },
+
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const imageFilter = (req, file, cb) => {
+    // Accept images only
+
+    if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+        req.fileValidationError = 'Only image files are allowed!';
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
 
 const con = mysql.createConnection({
     host: "localhost",
@@ -54,7 +73,7 @@ app.post('/regisDB', async (req, res) => {
             return res.redirect("login.html");
         }
     }
-    
+
 })
 
 app.post('/checkLogin', async (req, res) => {
@@ -65,10 +84,10 @@ app.post('/checkLogin', async (req, res) => {
     let result = await queryDB(sql);
 
     if (result.length !== 0) {
-        console.log("pass");
         res.cookie('email', email);
         res.cookie('img', result[0].img);
-        return res.status(400).send("Login success");
+        return res.redirect("profile.html");
+
     }
     else {
 
@@ -76,6 +95,22 @@ app.post('/checkLogin', async (req, res) => {
     }
 
 })
+
+app.post('/profile', async (req, res) => {
+    res.redirect("profile.html");
+
+})
+
+app.post('/showDataProfile', express.json() ,async (req, res) => {
+    let email = req.cookies.email;
+    console.log(email);
+    let sql = `SELECT email , name,surname,phonenumber ,img FROM Userdatabase WHERE email = '${email}'`;
+    let result = await queryDB(sql);
+    result = Object.assign({}, result);
+    console.log(result);
+    res.json(result);
+})
+
 app.listen(port, hostname, () => {
     console.log(`Server running at   http://${hostname}:${port}/login.html`);
 });

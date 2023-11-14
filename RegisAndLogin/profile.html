@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Login</title>
-		<link type="text/css" rel="stylesheet" href="style.css">
-		<script type="text/javascript" src="js/profile.js"></script>
-	</head>
-	<body>
-        
-	</body>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Profile</title>
+	<link type="text/css" rel="stylesheet" href="css/profile.css">
+	<script type="text/javascript" src="js/profile.js"></script>
+</head>
+
+<body>
+	<fieldset>
+		<form class="form" action="/profile" method="post" accept-charset="utf-8">
+
+			<input type="submit" name="submit" value="โปรไฟส์">
+
+		</form>
+		<br>
+		<form class="form" action="/Resume" method="post" accept-charset="utf-8">
+
+			<input type="submit" name="submit" value="เรซูเม่">
+
+		</form>
+		<br>
+		<form class="form" action="/RecordWork" method="post" accept-charset="utf-8">
+
+			<input type="submit" name="submit" value="งานที่บันทึกไว้">
+
+		</form>
+	</fieldset>
+	<fieldset>
+		<h1>โปรไฟส์</h1>
+		<div id="displayPic">
+			<img src="img/avatar.png" alt="">
+		</div>
+		<h2>ชื่อ</h2>
+		
+		<h2>อีเมล</h2>
+		<h2>เบอร์โทร</h2>
+
+	</fieldset>
+</body>
+
 </html>
