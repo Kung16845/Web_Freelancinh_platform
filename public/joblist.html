@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+    <!-- Link to your style.css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header (reuse the same header code) -->
+    <header>
+        <h1>Your Website Name</h1>
+        <nav>
+            <button onclick="location.href='#'">Register</button>
+            <button onclick="location.href='#'">Login</button>
+            <button onclick="location.href='jobdetail.html'">Find Job</button>
+        </nav>
+    </header>
+
+    <!-- Search Bar -->
+    <section id="search-bar">
+        <input type="text" id="job-search" placeholder="Search for a job...">
+        <button onclick="searchJobs()">Search</button>
+    </section>
+
+    <!-- Selection Buttons -->
+    <section id="selection-buttons">
+        <button onclick="filterJobs('Close-contact')">Close Contact</button>
+        <button onclick="filterJobs('Open-contact')">Open Contact</button>
+    </section>
+    <!-- Ghost Type Dropdown -->
+    <select id="ghost-type-dropdown" onchange="filterJobsByGhostType()">
+        <option value="">Select Ghost Type</option>
+        <option value="Revenant">Revenant</option>
+        <option value="poltergeist">Poltergeist</option>
+        <option value="Demon">Demon</option>
+        <option value="Multiple">Multiple Ghosts</option>
+        <option value="unknow">Unknown</option>
+    </select>
+
+    
+
+    <!-- Job Panels -->
+    <section id="job-panels">
+        <!-- Panels will be dynamically populated using JavaScript -->
+    </section>
+
+    <!-- Footer (reuse the same footer code) -->
+    <footer>
+        <p>&copy; 2023 Your Website Name. All rights reserved.</p>
+    </footer>
+
+    <!-- Link to your script.js -->
+    <script src="script.js"></script>
+</body>
+</html>

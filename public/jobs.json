@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "name": "Hunting house",
+        "details": "มีการเคลื่อนย้ายสิ่งของอย่างผิดปกติในบ้าน",
+        "image": "software_developer.jpg",
+        "difficulty": 2,
+        "Reward" : 300,
+        "Ghost type": "poltergeist",
+        "type": "Close-contact"
+    },
+    {
+        "id": 2,
+        "name": "Multiple Ghost has seen in factory",
+        "details": "มีการพบเห็นกลุ่มวิญญาณอาศัยอยู่ในโรงงาน",
+        "image": "software_developer.jpg",
+        "difficulty": 4,
+        "Reward" : 1500,
+        "Ghost type": "unknow",
+        "type": "Open-contact"
+    },
+    {
+        "id": 3,
+        "name": "Headless men on the Joi street.",
+        "details": "ชายหัวขาดเดินไปเดินมากลางถนนยามค่ำคืน ไม่ชัวร์ว่าเป็นการแกล้งกันหรือป่าว",
+        "image": "software_developer.jpg",
+        "difficulty": 3,
+        "Reward" : 500,
+        "Ghost type": "unknow",
+        "type": "Open-contact"
+    },
+    {
+        "id": 4,
+        "name": "Demon spotted in Mansion",
+        "details": "พบเห็นปีศาจในคฤหาสใจกลางเมือง",
+        "image": "software_developer.jpg",
+        "difficulty": 5,
+        "Reward" : 2500,
+        "Ghost type": "Demon",
+        "type": "Close-contact"
+    },
+    {
+        "id": 5,
+        "name": "Ghost disturbed!",
+        "details": "ชายแก่โดนผีกลั่นแกล้งในบ้าน",
+        "image": "software_developer.jpg",
+        "difficulty": 1,
+        "Reward" : 50,
+        "Ghost type": "unknow",
+        "type": "Close-contact"
+    },
+    {
+        "id": 6,
+        "name": "Women keep dreaming nightmare for 4 month",
+        "details": "คุณนายเวอรีน่าฝันร้ายถึงชายแก่ทำร้ายมาตลอด 4 เดือน",
+        "image": "software_developer.jpg",
+        "difficulty": 1,
+        "Reward" : 400,
+        "Ghost type": "unknow",
+        "type": "Close-contact"
+    },
+    {
+        "id": 7,
+        "name": "Cursed Forest Cleaner needed",
+        "details": "ต้องการคนมาช่วยป้องกันการล้างป่าช้า",
+        "image": "software_developer.jpg",
+        "difficulty": 4,
+        "Reward" : 5000,
+        "Ghost type": "Multiple",
+        "type": "Open-contact"
+    },
+    {
+        "id": 8,
+        "name": "Danger Revenent detected!",
+        "details": "พบเห็น Revenent ในที่ชุมชนต้องการคนด่วน!",
+        "image": "software_developer.jpg",
+        "difficulty": 5,
+        "Reward" : 7000,
+        "Ghost type": "Revenant",
+        "type": "Open-contact"
+    }
+]
