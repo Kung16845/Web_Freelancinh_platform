@@ -51,16 +51,18 @@
             <h2>รางวัลที่เคยได้รับ</h2>
 
             <textarea input type="text" name="rewardInfo" value="" placeholder="" rows="4" cols="50" required></textarea>
+            
             <br>
             <br>
             <input type="submit" name="submit" value="บันทึก">
         </form>
-        <div id="profileImage">
-            <img src="img/avatar.png" alt="">
-            <form action="" method="post" id="formId" enctype="multipart/form-data">
+        <div id="displayPic">
+            <img src="img/avatar.png" alt=""> 
+        </div>
+            <form action="/profilepic" method="post" id="formId" enctype="multipart/form-data">
                 <input type="file" id="fileField" name="avatar" value="fileToUpload" placeholder="" hidden>
             </form>
-        </div>
+        
     </fieldset>
 </body>
 

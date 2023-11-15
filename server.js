@@ -13,7 +13,7 @@ var cookieParser = require('cookie-parser');
 const path = require('path');
 const { count, Console } = require('console');
 
-app.use(express.static('RegisAndLogin'));
+app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -104,6 +104,28 @@ app.post('/checkLogin', async (req, res) => {
     }
 
 })
+const upload = multer({ storage: storage, fileFilter: imageFilter });
+//ทำให้สมบูรณ์
+app.post('/profilepic', upload.single('avatar'), (req, res) => {
+    if (!req.file) {
+        return res.redirect('resume.html?error=1');
+    }
+
+    const email = req.cookies.email;
+
+    updateImg(email, req.file.filename);
+
+    res.cookie('img', req.file.filename);
+
+    return res.redirect('resume.html');
+})
+
+const updateImg = async (email, filen) => {
+
+    let sql = `UPDATE Userdatabase SET img = '${filen}' WHERE email = '${email}'`
+    let result = await queryDB(sql);
+
+};
 
 app.post('/profile', async (req, res) => {
     res.redirect("profile.html");
@@ -127,26 +149,32 @@ app.post('/showDataProfile', express.json(), async (req, res) => {
 })
 
 app.post('/resumeDB', async (req, res) => {
-    let sql = "CREATE TABLE IF NOT EXISTS resume (email VARCHAR(100),experience TEXT,education_history TEXT,skills TEXT,award TEXT)";
+    let sql = "CREATE TABLE IF NOT EXISTS resume (email VARCHAR(100),personal_profile TEXT,experience TEXT,education_history TEXT,skills TEXT,award TEXT)";
     let result = await queryDB(sql);
     let email = req.cookies.email;
 
-    sql = `INSERT INTO resume (email,experience,education_history,skills,award) VALUES ("${email}", "${req.body.profileInfo}" , "${req.body.experienceInfo}" , "${req.body.educationInfo}" ,"${req.body.skillsInfo}")`;
+    sql = `INSERT INTO resume (email,personal_profile,experience,education_history,skills,award) VALUES ("${email}", "${req.body.profileInfo}" , "${req.body.experienceInfo}" , "${req.body.educationInfo}" ,"${req.body.skillsInfo}" ,"${req.body.rewardInfo}")`;
     result = await queryDB(sql);
-    console.log("New record created successfullyone");
+    
     return res.redirect("resume.html");
 })
 
-app.post('/showDataresume ', express.json(), async (req, res) => {
+app.post('/showDataresume', express.json(), async (req, res) => {
+    try {
+        let email = req.cookies.email;
+        let sql = `SELECT personal_profile, experience, education_history, skills, award FROM resume WHERE email = '${email}'`;
+        let result = await queryDB(sql);
 
-    let email = req.cookies.email;  
-    let sql = `SELECT experience,education_history,skills,award FROM resume WHERE email = '${email}'`;
-    let result = await queryDB(sql);
+        result = result.map(row => Object.assign({}, row));
+        // console.log(result);
+        res.json(result);
+    } catch (error) {
+        console.error('Error while querying database:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
-    result = result.map(row => Object.assign({}, row));
-    res.json(result);
 
-})
 app.listen(port, hostname, () => {
     console.log(`Server running at   http://${hostname}:${port}/login.html`);
 });

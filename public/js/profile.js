@@ -4,6 +4,7 @@ function pageLoad()
 {      
     // alert('หน้าเว็บโหลดเสร็จสมบูรณ์!');
     getData();
+    showImg('img/'+getCookie('img'));
 }
 
 async function getData() {
@@ -18,10 +19,11 @@ async function getData() {
         if (response.ok) {
             const data = await response.json();
             var keys = Object.keys(data);
-            if (data[keys[0]]["img"]) {
-                document.getElementById('profileImage').src = 'img/' + data[keys[0]]["img"];
-            }
-              
+            // if (data[keys[0]]["img"]) {
+            //     console.log(data[keys[0]]["img"]);
+            //     document.getElementById('profileImage').src = 'img/' + data[keys[0]]["img"];
+            // }
+            
             document.getElementById("name").innerText = data[keys[0]]["name"];
             document.getElementById("surname").innerText = data[keys[0]]["surname"];
             document.getElementById("email").innerText = data[keys[0]]["email"];
@@ -39,4 +41,22 @@ async function getData() {
    
 }
 
-
+function showImg(filename){
+    console.log("ShowImg");
+	if (filename !==""){
+		var showpic = document.getElementById('profileImage');
+		showpic.innerHTML = "";
+		var temp = document.createElement("img");
+		temp.src = filename;
+		showpic.appendChild(temp);
+	}
+}
+function getCookie(name){
+	var value = "";
+	try{
+		value = document.cookie.split("; ").find(row => row.startsWith(name)).split('=')[1]
+		return value
+	}catch(err){
+		return false
+	} 
+}
