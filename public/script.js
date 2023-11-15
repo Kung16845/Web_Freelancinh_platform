@@ -81,6 +81,7 @@ function createJobPanel(job) {
         <p>${job.details}</p>
         <p>Difficulty: ${job.difficulty}</p>
         <p>Reward: ${job.Reward}</p>
+        <p>ContactType: ${job.type}</p>
         <p>Ghost Type: ${job['Ghost type']}</p>
         <button onclick="applyForJob(${job.id})">More!</button>
     `;
