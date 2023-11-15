@@ -91,8 +91,9 @@ app.post('/checkLogin', async (req, res) => {
 
     if (result.length !== 0) {
         res.cookie('email', email);
-        // res.cookie('name', result[0].name);
-        // res.cookie('surname', result[0].surname);
+        res.cookie('name', result[0].name);
+        res.cookie('surname', result[0].surname);
+        res.cookie('idjob',);
         // res.cookie('phonenumber', result[0].phonenumber );
         res.cookie('img', result[0].img);
         return res.redirect("profile.html");
@@ -174,6 +175,27 @@ app.post('/showDataresume', express.json(), async (req, res) => {
     }
 });
 
+app.get('/readPost', async (req, res) => {
+    let sql = "CREATE TABLE IF NOT EXISTS postjob (idjob INT(11),name VARCHAR(255),surname VARCHAR(255),post VARCHAR(255))";
+    let result = await queryDB(sql);
+    let idjob = req.cookies.idjob;
+    sql = `SELECT name,surname,post from postjob WHERE idjob = '${idjob}'`;
+    result = await queryDB(sql);
+    res.json(result);
+    
+})
+
+app.post('/writePost', async (req, res) => {
+    let sql = "CREATE TABLE IF NOT EXISTS postjob (idjob INT(11),name VARCHAR(255),surname VARCHAR(255),post VARCHAR(255))";
+    let result = await queryDB(sql);
+    let name = req.cookies.name;
+    let surname = req.cookies.surname;
+    let idjob = req.cookies.idjob;
+    sql = `INSERT INTO postjob (idjob,name,surname,post ) VALUES ( "${idjob}","${name}","${surname}", "${req.body.message}" )`;
+    result = await queryDB(sql);
+    res.json(result);
+    
+})
 
 app.listen(port, hostname, () => {
     console.log(`Server running at   http://${hostname}:${port}/index.html`);

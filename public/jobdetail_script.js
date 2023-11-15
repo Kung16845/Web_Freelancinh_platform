@@ -15,6 +15,15 @@ function getCookie(name){
 		return false
 	} 
 } 
+function updateCookie(name, value, expirationDays) {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + expirationDays);
+
+    const updatedCookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expirationDate.toUTCString()}; path=/`;
+
+    document.cookie = updatedCookie;
+}
+
 // Function to fetch job details by ID from the server (Node.js)
 function fetchJobDetails(jobId, callback) {
     // You would typically make an API call to the server here
@@ -51,16 +60,74 @@ function displayJobDetails(job) {
 // Extract job ID from the URL query parameters
 function getJobIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
+    let id = urlParams.get('id');
+    
     return urlParams.get('id');
 }
 
 // Fetch and display job details when the page is loaded
 window.onload = function () {
     document.getElementById('save-button').onclick = checkCookie;
+    document.getElementById('postbutton').onclick = getData;
+
     const jobId = getJobIdFromUrl();
+    
+    updateCookie('idjob', jobId, 7);
     if (jobId) {
         fetchJobDetails(jobId, job => displayJobDetails(job));
     } else {
         console.error('Job ID not provided in the URL.');
     }
+    readPost();
 };
+
+function getData(){
+	var msg = document.getElementById("textmsg").value;
+	document.getElementById("textmsg").value = "";
+	writePost(msg);
+}
+
+async function writePost(msg){
+	const response = await fetch('/writePost', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: msg, user: getCookie('name') + getCookie('surname')})
+    });
+
+    if (response.status === 200) {
+        readPost();
+    }
+}
+async function readPost(){
+	const response = await fetch('/readPost');
+    const data = await response.json();
+	console.log(data);
+    if (data && typeof data === 'object') {
+        showPost(data);
+    }
+	
+}
+
+function showPost(data){
+	var keys = Object.keys(data);
+	var divTag = document.getElementById("feed-container");
+	divTag.innerHTML = "";
+	for (var i = keys.length-1; i >=0 ; i--) {
+
+		var temp = document.createElement("div");
+		temp.className = "newsfeed";
+		divTag.appendChild(temp);
+		var temp1 = document.createElement("div");
+		temp1.className = "postmsg";
+		temp1.innerHTML = data[keys[i]]["post"];
+		temp.appendChild(temp1);
+		var temp1 = document.createElement("div");
+		temp1.className = "postuser";
+		
+		temp1.innerHTML = "Posted by: "+data[keys[i]]["name"] + "  "+data[keys[i]]["surname"];
+		temp.appendChild(temp1);
+		
+	}
+}
