@@ -1,0 +1,107 @@
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+body{
+    background-color: #ffffff;
+    opacity: 1;
+    background-image:  radial-gradient(#bf726c 1.05px, transparent 1.05px), radial-gradient(#bf726c 1.05px, #ffffff 1.05px);
+    background-size: 42px 42px;
+    background-position: 0 0,21px 21px;
+}
+
+.flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: auto;
+    padding-right: auto;
+    padding-top: auto;
+    padding-bottom: auto;
+}
+
+#search-bar input[type=text] {
+  float: center;
+  padding: 6px;
+  border: 1px solid black;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+#job-panels{
+    display: flex;
+  justify-content: center;
+  flex-direction:column;
+  align-items: center;
+}
+.job-panel{
+    width: 1153px;
+    height: auto;
+    
+    background: rgb(235, 230, 230);
+    border-radius: 25px;
+    border: 1px solid indianred;
+}
+.job-panel > img{
+    margin-top: 10%;
+    float: left;
+}
+.job-panel > h3{
+    padding-left : 30%;
+    text-align: left;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+.job-panel > p{
+    padding-left : 30%;
+    text-align: left;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 16px;
+    line-height: 44px;
+}
+
+/* Grid display */
+.grid-container{
+    display: grid;
+    grid-template-columns: 5% auto 5%;
+    grid-gap: 10px;
+}
+
+.grid-container > div{
+    border: 1px solid indianred;
+    font-size: 20px;
+    text-align: center;
+    background-color:rgba(255, 255, 255, 0.833);
+} 
+
+#headline{
+    grid-column: 1 / span  3;
+}
+
+
+#center{
+    grid-column: 2 / span 1;
+
+    
+}
+#right{
+    grid-column: 3 / span 1;
+}
+
+#footline{
+    grid-column: 1 / span 3;
+} 
+
+a:link{
+	color: #2214ef; 
+}  
+a:visited{
+	color: #4e1298; 
+} 
+ a:hover{ 
+	color: #FF00FF; 
+} 

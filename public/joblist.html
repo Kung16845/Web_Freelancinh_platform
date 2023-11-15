@@ -8,52 +8,57 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<div class = "grid-container">
     <!-- Header (reuse the same header code) -->
+    <div id="headline">
     <header>
-        <h1>Your Website Name</h1>
+        <div class="flex">
+        <h1>KTN WILL FIND WORK</h1>
         <nav>
             <button onclick="location.href='#'">Register</button>
             <button onclick="location.href='#'">Login</button>
-            <button onclick="location.href='jobdetail.html'">Find Job</button>
+            <button onclick="location.href='joblist.html'">Find Job</button>
         </nav>
+        </div>
     </header>
+    </div>
+    <div id="center">
+            <!-- Search Bar -->
+            <section id="search-bar">
+                <input type="text" id="job-search" placeholder="Search for a job...">
+                <button onclick="searchJobs()">Search</button>
+            </section>
 
-    <!-- Search Bar -->
-    <section id="search-bar">
-        <input type="text" id="job-search" placeholder="Search for a job...">
-        <button onclick="searchJobs()">Search</button>
-    </section>
-
-    <!-- Selection Buttons -->
-    <section id="selection-buttons">
-        <button onclick="filterJobs('Close-contact')">Close Contact</button>
-        <button onclick="filterJobs('Open-contact')">Open Contact</button>
-    </section>
-    <!-- Ghost Type Dropdown -->
-    <select id="ghost-type-dropdown" onchange="filterJobsByGhostType()">
-        <option value="">Select Ghost Type</option>
-        <option value="Revenant">Revenant</option>
-        <option value="poltergeist">Poltergeist</option>
-        <option value="Demon">Demon</option>
-        <option value="Multiple">Multiple Ghosts</option>
-        <option value="unknow">Unknown</option>
-        <option value="Spirit">Spirit</option>
-    </select>
-
-    
-
+            <!-- Selection Buttons -->
+            <section id="selection-buttons">
+                <button onclick="filterJobs('Close-contact')">Close Contact</button>
+                <button onclick="filterJobs('Open-contact')">Open Contact</button>
+ 
+                <!-- Ghost Type Dropdown -->
+                <select id="ghost-type-dropdown" onchange="filterJobsByGhostType()">
+                    <option value="">Select Ghost Type</option>
+                    <option value="Revenant">Revenant</option>
+                    <option value="poltergeist">Poltergeist</option>
+                    <option value="Demon">Demon</option>
+                    <option value="Multiple">Multiple Ghosts</option>
+                    <option value="unknow">Unknown</option>
+                    <option value="Spirit">Spirit</option>
+                </select>
+            </section>
+  
     <!-- Job Panels -->
     <section id="job-panels">
         <!-- Panels will be dynamically populated using JavaScript -->
-    </section>
-
+    </section>  </div>
     <!-- Footer (reuse the same footer code) -->
+    <div id="footline">
     <footer>
         <p>&copy; 2023 Your Website Name. All rights reserved.</p>
     </footer>
+    </div>
 
     <!-- Link to your script.js -->
     <script src="script.js"></script>
+</div>
 </body>
 </html>
