@@ -1,5 +1,20 @@
 // jobdetail_script.js
+function checkCookie(){
+	var email = "";
+	if(getCookie("email")==false){
+		window.location = "login.html";
+	}
+}
 
+function getCookie(name){
+	var value = "";
+	try{
+		value = document.cookie.split("; ").find(row => row.startsWith(name)).split('=')[1]
+		return value
+	}catch(err){
+		return false
+	} 
+} 
 // Function to fetch job details by ID from the server (Node.js)
 function fetchJobDetails(jobId, callback) {
     // You would typically make an API call to the server here
@@ -41,6 +56,7 @@ function getJobIdFromUrl() {
 
 // Fetch and display job details when the page is loaded
 window.onload = function () {
+    document.getElementById('save-button').onclick = checkCookie;
     const jobId = getJobIdFromUrl();
     if (jobId) {
         fetchJobDetails(jobId, job => displayJobDetails(job));
