@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+    <!-- Link to your style.css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class = "grid-container">
+    <!-- Header (reuse the same header code) -->
+    <div id="headline">
+    <header>
+        <div class="flex">
+        <h1>KTN WILL FIND WORK</h1>
+        <nav>
+            <button onclick="location.href='register.html'">Register</button>
+            <button onclick="location.href='login.html'">Login</button>
+            <button onclick="location.href='joblist.html'">Find Job</button>
+        </nav>
+        </div>
+    </header>
+    </div>
+    <div id="center">
+            <!-- Search Bar -->
+            <section id="search-bar">
+                <input type="text" id="job-search" placeholder="Search for a job...">
+                <button onclick="searchJobs()">Search</button>
+            </section>
+
+            <!-- Selection Buttons -->
+            <section id="selection-buttons">
+                <button onclick="filterJobs('Close-contact')">Close Contact</button>
+                <button onclick="filterJobs('Open-contact')">Open Contact</button>
+ 
+                <!-- Ghost Type Dropdown -->
+                <select id="ghost-type-dropdown" onchange="filterJobsByGhostType()">
+                    <option value="">Select Ghost Type</option>
+                    <option value="Revenant">Revenant</option>
+                    <option value="poltergeist">Poltergeist</option>
+                    <option value="Demon">Demon</option>
+                    <option value="Multiple">Multiple Ghosts</option>
+                    <option value="unknow">Unknown</option>
+                    <option value="Spirit">Spirit</option>
+                </select>
+            </section>
+  
+    <!-- Job Panels -->
+    <section id="job-panels">
+        <!-- Panels will be dynamically populated using JavaScript -->
+    </section>  </div>
+    <!-- Footer (reuse the same footer code) -->
+    <div id="footline">
+    <footer>
+        <p>&copy; 2023 Your Website Name. All rights reserved.</p>
+    </footer>
+    </div>
+
+    <!-- Link to your script.js -->
+    <script src="script.js"></script>
+</div>
+</body>
+</html>

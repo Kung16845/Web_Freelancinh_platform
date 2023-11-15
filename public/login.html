@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Login</title>
-		<link type="text/css" rel="stylesheet" href="css/style.css">
-		<script type="text/javascript" src="js/login.js"></script>
-	</head>
-	<body>
-		<div id=container>
-			<form class="form" action="/checkLogin" method="post" accept-charset="utf-8">
-				<fieldset>
-					<legend> Login </legend>
-					Email:<input type="email" name="email" value="" placeholder="" required><br>
-					Password: <input type="password" name="password" value="" placeholder="" required><br>
-					<span id="errordisplay"></span><br>
-					<input type="submit" value="Login">
-				</fieldset>
-			</form>
-			
+
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<link type="text/css" rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/login.js"></script>
+</head>
+
+<body>
+
+	<div id=container><!-- Header -->
+		<div id="headline">
+			<header>
+				<div class="flex">
+					<h1>KTN WILL FIND WORK</h1>
+					<nav>
+						<button onclick="location.href='register.html'">Register</button>
+						<button onclick="location.href='joblist.html'">Find Job</button>
+					</nav>
+				</div>
+			</header>
 		</div>
-	
-	</body>
+		<form class="form" action="/checkLogin" method="post" accept-charset="utf-8">
+			<fieldset>
+				<legend> Login </legend>
+				Email:<input type="email" name="email" value="" placeholder="" required><br>
+				Password: <input type="password" name="password" value="" placeholder="" required><br>
+				<span id="errordisplay"></span><br>
+				<input type="submit" value="Login">
+			</fieldset>
+		</form>
+
+	</div>
+	<!-- Footer -->
+	<div id="footline">
+		<footer>
+			<p>&copy; 2023 Your Website Name. All rights reserved.</p>
+			<!-- Add more footer content if needed -->
+		</footer>
+	</div>
+</body>
+
 </html>
