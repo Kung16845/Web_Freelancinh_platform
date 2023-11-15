@@ -152,13 +152,23 @@ app.post('/showDataProfile', express.json(), async (req, res) => {
 app.post('/resumeDB', async (req, res) => {
     let sql = "CREATE TABLE IF NOT EXISTS resume (email VARCHAR(100),personal_profile TEXT,experience TEXT,education_history TEXT,skills TEXT,award TEXT)";
     let result = await queryDB(sql);
-    let email = req.cookies.email;
 
-    sql = `INSERT INTO resume (email,personal_profile,experience,education_history,skills,award) VALUES ("${email}", "${req.body.profileInfo}" , "${req.body.experienceInfo}" , "${req.body.educationInfo}" ,"${req.body.skillsInfo}" ,"${req.body.rewardInfo}")`;
+    let email = req.cookies.email;
+    sql = `SELECT email,personal_profile,experience,education_history,skills,award FROM resume WHERE email = '${email}'`;
     result = await queryDB(sql);
-    
+
+    if (result.length === 0) {
+        sql = `INSERT INTO resume (email, personal_profile, experience, education_history, skills, award) VALUES ("${email}", "${req.body.profileInfo}", "${req.body.experienceInfo}", "${req.body.educationInfo}", "${req.body.skillsInfo}", "${req.body.rewardInfo}")`;
+        result = await queryDB(sql);
+    } else {
+        // แก้ไข SQL UPDATE statement ตรงนี้
+        sql = `UPDATE resume SET personal_profile = '${req.body.profileInfo}', experience = "${req.body.experienceInfo}", education_history = "${req.body.educationInfo}", skills = "${req.body.skillsInfo}", award = "${req.body.rewardInfo}" WHERE email = '${email}'`;
+        result = await queryDB(sql);
+    }
+
     return res.redirect("resume.html");
-})
+});
+
 
 app.post('/showDataresume', express.json(), async (req, res) => {
     try {
@@ -182,7 +192,7 @@ app.get('/readPost', async (req, res) => {
     sql = `SELECT name,surname,post from postjob WHERE idjob = '${idjob}'`;
     result = await queryDB(sql);
     res.json(result);
-    
+
 })
 
 app.post('/writePost', async (req, res) => {
@@ -194,7 +204,7 @@ app.post('/writePost', async (req, res) => {
     sql = `INSERT INTO postjob (idjob,name,surname,post ) VALUES ( "${idjob}","${name}","${surname}", "${req.body.message}" )`;
     result = await queryDB(sql);
     res.json(result);
-    
+
 })
 
 app.listen(port, hostname, () => {
