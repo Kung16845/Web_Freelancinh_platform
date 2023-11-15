@@ -1,14 +1,20 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
+
 const hostname = 'localhost';
 const port = 3000;
 const mysql = require('mysql');
+
 const multer = require('multer');
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+
 const path = require('path');
+const { count, Console } = require('console');
 
 app.use(express.static('RegisAndLogin'));
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -80,11 +86,14 @@ app.post('/checkLogin', async (req, res) => {
 
     let { email, password } = req.body;
 
-    let sql = `SELECT email , password ,img FROM Userdatabase WHERE email = '${email}' AND password = '${password}'`;
+    let sql = `SELECT email,name,surname, phonenumber, password ,img FROM Userdatabase WHERE email = '${email}' AND password = '${password}'`;
     let result = await queryDB(sql);
 
     if (result.length !== 0) {
         res.cookie('email', email);
+        // res.cookie('name', result[0].name);
+        // res.cookie('surname', result[0].surname);
+        // res.cookie('phonenumber', result[0].phonenumber );
         res.cookie('img', result[0].img);
         return res.redirect("profile.html");
 
@@ -101,16 +110,43 @@ app.post('/profile', async (req, res) => {
 
 })
 
-app.post('/showDataProfile', express.json() ,async (req, res) => {
+app.post('/resume', async (req, res) => {
+    res.redirect("resume.html");
+
+})
+
+app.post('/showDataProfile', express.json(), async (req, res) => {
+
     let email = req.cookies.email;
-    console.log(email);
+    // console.log(email);
     let sql = `SELECT email , name,surname,phonenumber ,img FROM Userdatabase WHERE email = '${email}'`;
     let result = await queryDB(sql);
-    result = Object.assign({}, result);
-    console.log(result);
+    result = result.map(row => Object.assign({}, row));
+    // console.log(result);
     res.json(result);
 })
 
+app.post('/resumeDB', async (req, res) => {
+    let sql = "CREATE TABLE IF NOT EXISTS resume (email VARCHAR(100),experience TEXT,education_history TEXT,skills TEXT,award TEXT)";
+    let result = await queryDB(sql);
+    let email = req.cookies.email;
+
+    sql = `INSERT INTO resume (email,experience,education_history,skills,award) VALUES ("${email}", "${req.body.profileInfo}" , "${req.body.experienceInfo}" , "${req.body.educationInfo}" ,"${req.body.skillsInfo}")`;
+    result = await queryDB(sql);
+    console.log("New record created successfullyone");
+    return res.redirect("resume.html");
+})
+
+app.post('/showDataresume ', express.json(), async (req, res) => {
+
+    let email = req.cookies.email;  
+    let sql = `SELECT experience,education_history,skills,award FROM resume WHERE email = '${email}'`;
+    let result = await queryDB(sql);
+
+    result = result.map(row => Object.assign({}, row));
+    res.json(result);
+
+})
 app.listen(port, hostname, () => {
     console.log(`Server running at   http://${hostname}:${port}/login.html`);
 });

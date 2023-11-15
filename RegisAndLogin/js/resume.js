@@ -8,7 +8,7 @@ function pageLoad()
 
 async function getData() {
     try {
-        const response = await fetch('/showDataProfile', {
+        const response = await fetch('/showDataresume', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
