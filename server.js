@@ -13,6 +13,9 @@ var cookieParser = require('cookie-parser');
 const path = require('path');
 const { count, Console } = require('console');
 
+const jobsFilePath = path.join(__dirname, './public/jobs.json');
+const jobs = require(jobsFilePath);
+
 app.use(express.static('public'));
 app.use(express.json());
 app.use(bodyParser.json());
@@ -137,6 +140,19 @@ app.post('/resume', async (req, res) => {
     res.redirect("resume.html");
 
 })
+app.post('/RecordWork', async (req, res) => {
+    res.redirect("Recordwork.html");
+
+})
+app.post('/logout',async (req,res) => 
+{   
+    res.clearCookie("email");
+    res.clearCookie("name");
+    res.clearCookie("surname");
+    res.clearCookie("idjob");
+    res.clearCookie("img");
+    res.redirect("index.html");
+})
 
 app.post('/showDataProfile', express.json(), async (req, res) => {
 
@@ -207,6 +223,83 @@ app.post('/writePost', async (req, res) => {
 
 })
 
+app.post('/saveJobId', express.json(), async (req, res) => {
+    try {
+        const { email, jobId } = req.body;
+
+        // Decode the email
+        const decodedEmail = decodeURIComponent(email);
+
+        // Check if the decoded email exists in the SavedJobs table
+        const checkEmailSql = `SELECT savedJobIds FROM SavedJobs WHERE email = '${decodedEmail}'`;
+        const result = await queryDB(checkEmailSql);
+
+        let savedJobIds = result.length > 0 ? JSON.parse(result[0].savedJobIds) : [];
+
+        // Ensure savedJobIds is an array
+        if (!Array.isArray(savedJobIds)) {
+            savedJobIds = [];
+        }
+
+        // Check if jobId is already in savedJobIds
+        if (!savedJobIds.includes(jobId)) {
+            // If not present, add the new job ID to the array
+            savedJobIds.push(jobId);
+
+            if (result.length > 0) {
+                // If the decoded email exists, update the saved job IDs
+                const updateSql = `UPDATE SavedJobs SET savedJobIds = '${JSON.stringify(savedJobIds)}' WHERE email = '${decodedEmail}'`;
+                await queryDB(updateSql);
+            } else {
+                // If the decoded email doesn't exist, insert a new row
+                const insertSql = `INSERT INTO SavedJobs (email, savedJobIds) VALUES ('${decodedEmail}', '${JSON.stringify(savedJobIds)}')`;
+                await queryDB(insertSql);
+            }
+
+            res.json({ success: true, message: 'Job ID saved successfully' });
+        } else {
+            res.json({ success: false, message: 'Job ID already saved' });
+        }
+    } catch (error) {
+        console.error('Error saving job ID:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+// Modify this route in server.js
+app.get('/getRecordedJobs', express.json(), async (req, res) => {
+    try {
+        const email = req.cookies.email;
+
+        if (!email) {
+            return res.status(400).json({ error: 'Email is required.' });
+        }
+
+        // Decode the email
+        const decodedEmail = decodeURIComponent(email);
+
+        // Fetch the saved job IDs from the SavedJobs table
+        const sql = `SELECT savedJobIds FROM SavedJobs WHERE email = '${decodedEmail}'`;
+        const result = await queryDB(sql);
+
+        if (result.length > 0) {
+            const savedJobIds = JSON.parse(result[0].savedJobIds);
+
+            if (savedJobIds.length > 0) {
+                // Fetch job details for the saved job IDs
+                const recordedJobs = jobs.filter(job => savedJobIds.includes(String(job.id)));
+                res.json(recordedJobs);
+            } else {
+                res.json({ message: 'No recorded jobs found.' });
+            }
+        } else {
+            res.json({ message: 'No recorded jobs found.' });
+        }
+    } catch (error) {
+        console.error('Error fetching recorded jobs:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 app.listen(port, hostname, () => {
+    
     console.log(`Server running at   http://${hostname}:${port}/index.html`);
 });

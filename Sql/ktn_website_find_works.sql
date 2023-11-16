@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2023 at 03:59 PM
+-- Generation Time: Nov 16, 2023 at 11:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `ktn_website_find_works`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `postjob`
+--
+
+CREATE TABLE `postjob` (
+  `idjob` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `surname` varchar(255) DEFAULT NULL,
+  `post` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -41,7 +54,25 @@ CREATE TABLE `resume` (
 --
 
 INSERT INTO `resume` (`email`, `personal_profile`, `experience`, `education_history`, `skills`, `award`) VALUES
-('varit16845@gmail.com', ' asdsa', ' sadas', 'asdas', 'dasda', 'sadasd');
+('varit16845@gmail.com', 'ฟหกหฟ', 'หฟกหฟ', 'ฟหกหฟ', 'asdasdหฟกหฟ', 'asdsadหฟกฟหก');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `savedjobs`
+--
+
+CREATE TABLE `savedjobs` (
+  `email` varchar(100) DEFAULT NULL,
+  `savedJobIds` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`savedJobIds`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `savedjobs`
+--
+
+INSERT INTO `savedjobs` (`email`, `savedJobIds`) VALUES
+('varit16845@gmail.com', '[\"1\"]');
 
 -- --------------------------------------------------------
 

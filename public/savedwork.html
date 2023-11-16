@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link type="text/css" rel="stylesheet" href="css/profile.css">
+    <script type="text/javascript" src="js/resume.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+		<div id="headline">
+			<header>
+				<div class="flex">
+			<h1>KTN WILL FIND WORK</h1>
+			<nav>
+				<button onclick="location.href='joblist.html'">Find Job</button>
+			</nav></div>
+			</header>
+		</div>
+    <fieldset>
+        <form class="form" action="/profile" method="post" accept-charset="utf-8">
+
+            <input type="submit" name="submit" value="โปรไฟส์">
+
+        </form>
+        <br>
+        <form class="form" action="/resume" method="post" accept-charset="utf-8">
+
+            <input type="submit" name="submit" value="เรซูเม่">
+
+        </form>
+        <br>
+        <form class="form" action="/RecordWork" method="post" accept-charset="utf-8">
+
+            <input type="submit" name="submit" value="งานที่บันทึกไว้">
+
+        </form>
+    </fieldset>
+    <fieldset>
+        <h1>เรซูเม่</h1>
+        <form class="form" action="resumeDB" method="post" accept-charset="utf-8">
+
+            <h2>โปรไฟส์ส่วนตัว </h2>
+
+            <textarea input type="text" name="profileInfo" value="" placeholder="" rows="4" cols="50" required> </textarea>
+
+            <h2>ประสบการทำงาน</h2>
+
+            <textarea input type="text" name="experienceInfo" value="" placeholder="" rows="4" cols="50"required> </textarea>
+
+            <h2>ประวัตการศึกษา</h2>
+
+            <textarea input type="text" name="educationInfo" value="" placeholder="" rows="4" cols="50"required></textarea>
+
+            <h2>ความสามารถ</h2>
+
+            <textarea input type="textarea" name="skillsInfo" value="" placeholder="" rows="4" cols="50"required></textarea>
+
+            <h2>รางวัลที่เคยได้รับ</h2>
+
+            <textarea input type="text" name="rewardInfo" value="" placeholder="" rows="4" cols="50" required></textarea>
+            
+            <br>
+            <br>
+            <input type="submit" name="submit" value="บันทึก">
+        </form>
+        <div id="displayPic">
+            <img src="img/avatar.png" alt=""> 
+        </div>
+            <form action="/profilepic" method="post" id="formId" enctype="multipart/form-data">
+                <input type="file" id="fileField" name="avatar" value="fileToUpload" placeholder="" hidden>
+            </form>
+        
+    </fieldset>
+    <!-- Footer -->
+		 <div id="footline">
+			<footer>
+				<p>&copy; 2023 Your Website Name. All rights reserved.</p>
+				<!-- Add more footer content if needed -->
+			</footer>
+		</div>
+</body>
+
+</html>

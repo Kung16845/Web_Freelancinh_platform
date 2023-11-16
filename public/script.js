@@ -123,8 +123,28 @@ function applyForJob(jobId) {
         }
     });
 }
+function updateOrDeleteCookie(name, value, expirationDays) {
+    if (value === null) {
+        // Delete the cookie
+        const expiredCookie = `${encodeURIComponent(name)}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+        document.cookie = expiredCookie;
+    } else {
+        // Update the cookie
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + expirationDays);
+
+        const updatedCookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expirationDate.toUTCString()}; path=/`;
+
+        document.cookie = updatedCookie;
+    }
+}
 
 // Fetch and display 3 random job panels when the page is loaded
 window.onload = function () {
+    updateOrDeleteCookie('email', null);
+    updateOrDeleteCookie('name', null);
+    updateOrDeleteCookie('surname', null);
+    updateOrDeleteCookie('idjob', null);
+    updateOrDeleteCookie('img', null);
     fetchJobData(jobs => displayJobPanels(jobs, 3));
 };

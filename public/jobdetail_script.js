@@ -1,9 +1,32 @@
 // jobdetail_script.js
-function checkCookie(){
-	var email = "";
-	if(getCookie("email")==false){
-		window.location = "login.html";
-	}
+function checkCookie() {
+    var email = getCookie("email");
+    if (!email) {
+        window.location = "login.html";
+    } else {
+        saveJobIdToDatabase();
+    }
+}
+
+// Function to save the job ID to the database for the logged-in user
+function saveJobIdToDatabase() {
+    const jobId = getJobIdFromUrl();
+    const email = getCookie("email");
+
+    // Call an API endpoint on your server to save the job ID for the user
+    fetch('/saveJobId', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, jobId: jobId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the response from the server if needed
+        console.log('Job ID saved successfully:', data);
+    })
+    .catch(error => console.error('Error saving job ID:', error));
 }
 
 function getCookie(name){
@@ -84,6 +107,7 @@ window.onload = function () {
 function getData(){
 	var msg = document.getElementById("textmsg").value;
 	document.getElementById("textmsg").value = "";
+    checkCookie();
 	writePost(msg);
 }
 
