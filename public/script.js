@@ -141,10 +141,6 @@ function updateOrDeleteCookie(name, value, expirationDays) {
 
 // Fetch and display 3 random job panels when the page is loaded
 window.onload = function () {
-    updateOrDeleteCookie('email', null);
-    updateOrDeleteCookie('name', null);
-    updateOrDeleteCookie('surname', null);
-    updateOrDeleteCookie('idjob', null);
-    updateOrDeleteCookie('img', null);
+    
     fetchJobData(jobs => displayJobPanels(jobs, 3));
 };
