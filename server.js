@@ -132,7 +132,14 @@ const updateImg = async (email, filen) => {
 };
 
 app.post('/profile', async (req, res) => {
-    res.redirect("profile.html");
+    // Check if the 'email' cookie exists
+    if (!req.cookies.email) {
+        // If 'email' cookie doesn't exist, redirect to login page
+        return res.redirect('login.html');
+    }
+
+    // 'email' cookie exists, redirect to profile page
+    return res.redirect('profile.html');
 
 })
 
