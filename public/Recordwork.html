@@ -12,16 +12,38 @@
     <!-- Header -->
     <div id="headline">
     <header>
+        <div class="flex">
         <h1>KTN WILL FIND WORK</h1>
         <nav>
             <button onclick="location.href='joblist.html'">Find Job</button>
-            <button onclick="location.href='Recordwork.html'">Recorded Work</button>
         </nav>
+        </div>
     </header>
+    </div>
+    <div id="leftProfile">
+    <fieldset>
+        <form class="form" action="/profile" method="post" accept-charset="utf-8">
+
+            <input type="submit" name="submit" value="โปรไฟส์">
+
+        </form>
+        <br>
+        <form class="form" action="/resume" method="post" accept-charset="utf-8">
+
+            <input type="submit" name="submit" value="เรซูเม่">
+
+        </form>
+        <br>
+        <form class="form" action="/RecordWork" method="post" accept-charset="utf-8">
+
+            <input type="submit" name="submit" value="งานที่บันทึกไว้">
+
+        </form>
+    </fieldset>
     </div>
 
     <!-- Job Records -->
-    <div id ="center">
+    <div id ="centerProfile">
     <section id="recorded-jobs">
         <!-- Records will be dynamically populated using JavaScript -->
     </section>
