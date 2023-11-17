@@ -32,7 +32,9 @@ function displayRecordedJobs(jobs) {
         // Create HTML for each recorded job
         const jobListHTML = jobs.map(job => `
             <div class="recorded-job">
+            
                 <h3>${job.name}</h3>
+                <img src="${job.image}" alt="${job.name}">
                 <p>${job.details}</p>
                 <p>Difficulty: ${job.difficulty}</p>
                 <p>Reward: ${job.Reward}</p>
