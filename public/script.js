@@ -23,10 +23,6 @@ function displayJobPanels(jobs) {
     });
 }
 function fetchJobData(callback) {
-    // You would typically make an API call to the server here
-    // For simplicity, let's assume the server responds with a JSON array
-
-    // For demonstration purposes, we'll fetch data from the jobs.json file
     fetch('jobs.json')
         .then(response => response.json())
         .then(data => callback(data))
