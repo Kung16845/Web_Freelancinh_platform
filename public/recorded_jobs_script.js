@@ -20,6 +20,34 @@ async function fetchRecordedJobs() {
         console.error('Error fetching recorded jobs:', error);
     }
 }
+
+// Function to display recorded jobs on the page
+function displayRecordedJobs(jobs) {
+    const recordedJobsSection = document.getElementById('recorded-jobs');
+
+    if (jobs.length === 0) {
+        // Display a message when there are no recorded jobs
+        recordedJobsSection.innerHTML = '<p>No recorded jobs found.</p>';
+    } else {
+        // Create HTML for each recorded job
+        const jobListHTML = jobs.map(job => `
+            <div class="recorded-job">
+            
+                <h3>${job.name}</h3>
+                <img src="${job.image}" alt="${job.name}">
+                <p>${job.details}</p>
+                <p>Difficulty: ${job.difficulty}</p>
+                <p>Reward: ${job.Reward}</p>
+                <p>Ghost Type: ${job['Ghost type']}</p>
+                <!-- Add more job details as needed -->
+                <button onclick="applyForJob(${job.id})">More!</button>
+            </div>
+        `).join('');
+
+        recordedJobsSection.innerHTML = jobListHTML;
+    }
+}
+
 function fetchJobData(callback) {
     // You would typically make an API call to the server here
     // For simplicity, let's assume the server responds with a JSON array
@@ -39,30 +67,6 @@ function applyForJob(jobId) {
             window.location.href = `jobdetail.html?id=${selectedJob.id}`;
         }
     });
-}
-// Function to display recorded jobs on the page
-function displayRecordedJobs(jobs) {
-    const recordedJobsSection = document.getElementById('recorded-jobs');
-
-    if (jobs.length === 0) {
-        // Display a message when there are no recorded jobs
-        recordedJobsSection.innerHTML = '<p>No recorded jobs found.</p>';
-    } else {
-        // Create HTML for each recorded job
-        const jobListHTML = jobs.map(job => `
-            <div class="recorded-job">
-                <h3>${job.name}</h3>
-                <img src="${job.image}" alt="${job.name}">
-                <p>${job.details}</p>
-                <p>Difficulty: ${job.difficulty}</p>
-                <p>Reward: ${job.Reward}</p>
-                <p>Ghost Type: ${job['Ghost type']}</p>
-                <button onclick="applyForJob(${job.id})">More!</button>
-            </div>
-        `).join('');
-
-        recordedJobsSection.innerHTML = jobListHTML;
-    }
 }
 
 // Function to get a cookie value by name

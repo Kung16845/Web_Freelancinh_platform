@@ -6,18 +6,65 @@ body{
     background-position: 0 0,21px 21px;
 }
 
+nav {
+    display: block;
+  }
+
 .flex{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    flex-wrap: nowrap;
     padding-left: auto;
     padding-right: auto;
     padding-top: auto;
     padding-bottom: auto;
 }
 
-#search-bar input[type=text] {
+.flex > nav>button,form > input[type="Submit"],#postbutton{ /*credit from Button6 https://getcssscan.com/css-buttons-examples */
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+}
+.flex > nav>button:hover,form > input[type="Submit"]:hover,button:focus,form > input[type="Submit"]:focus,#postbutton:focus,#postbutton:hover{
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    color: rgba(0, 0, 0, 0.65);
+}
+.flex > nav>button:hover,form > input[type="Submit"]:hover,#postbutton:hover{
+    transform: translateY(-1px);
+}
+.flex > nav>button:avtive,form > input[type="Submit"]:active,#postbutton:active{
+    background-color: #F0F0F1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+}
+
+#search-bar input[type=text],#textmsg {
   float: center;
   padding: 6px;
   border: 1px solid black;
@@ -25,14 +72,16 @@ body{
   margin-right: 16px;
   font-size: 17px;
 }
-#job-panels{
+
+
+#job-panels,#feed-container{
     display: flex;
   justify-content: center;
   flex-direction:column;
   align-items: center;
   gap: 10px;
 }
-.job-panel{
+.job-panel,#job-details{
     width: 1153px;
     height: auto;
     
@@ -67,10 +116,17 @@ body{
     font-size: 16px;
     line-height: 20%;
 }
-.job-panel > button{  /*credit from https://getcssscan.com/css-buttons-examples */
+.job-panel > button{
     margin-bottom: 2%;
     margin-right: 2%;
     float: right;
+}
+#job-details> #save-button{
+    padding-bottom: 2%;
+    padding-right: 2%;
+    float: right;
+}
+.job-panel > button,#job-details> #save-button{  /*credit from Button53 https://getcssscan.com/css-buttons-examples */
         background-color: rgb(138, 192, 234);
     border: 0 solid #E5E7EB;
     box-sizing: border-box;
@@ -95,11 +151,11 @@ body{
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-.job-panel > button:focus {
+.job-panel > button:focus ,#save-button:focus{
     outline: 0;
   }
   
-.job-panel > button:after {
+.job-panel > button:after ,#save-button:after{
     content: '';
     position: absolute;
     border: 1px solid #000000;
@@ -108,15 +164,65 @@ body{
     width: calc(100% - 1px);
     height: calc(100% - 1px);
   }
-.job-panel > button:hover:after {
+.job-panel > button:hover:after ,#save-button:hover:after{
     bottom: 2px;
     left: 2px;
 }
 
+#job-image{
+    margin-top: 1%;
+    margin-left: 2%;
+    border: 1px solid #ddd;
+    border-radius: 25%;
+    padding: 5px;
+    height: 250px;
+    max-width: 35%;
+}
+
+#job-details >h2{
+    font-family: 'Garamond';
+    font-weight: bold;
+    font-size: 200%;
+    line-height: 20%;
+}
+
+#job-details >p{
+font-family: 'Inter';
+    font-style: normal;
+    font-size: 16px;
+    line-height: 120%;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-bottom: 2%;
+}
+
+.newsfeed{
+    width: 1153px;
+    height: auto;
+    
+    background: rgb(255, 255, 255);
+    border-radius: 25px;
+}
+
+.postmsg{
+    padding: 1%;
+    font-family: 'Inter';
+    font-size: 100%;
+    line-height: 120%;
+}
+
+.postuser{
+    padding: 1%;
+    font-family: 'Inter';
+    font-size: 80%;
+    line-height: 50%;
+}
+
+
 /* Grid display */
 .grid-container{
     display: grid;
-    grid-template-columns: 5% auto 5%;
+    grid-template-columns: 5% 15% auto 5%;
     grid-gap: 10px;
 }
 
@@ -127,7 +233,7 @@ body{
 } 
 
 .grid-container > #headline{
-    grid-column: 1 / span  3;
+    grid-column: 1 / span  4;
     background-color:#2B4293;
 
     color: white;
@@ -138,18 +244,20 @@ body{
     line-height: 44px;
 }
 
-
 .grid-container > #center{
-    grid-column: 2 / span 1;
+    grid-column: 2 / span 2;
 
     
 }
-.grid-container > #right{
-    grid-column: 3 / span 1;
+.grid-container > #leftProfile{
+    grid-column: 1 / span 2;
+}
+.grid-container > #centerProfile{
+    grid-column: 3 / span 2;
 }
 
 .grid-container > #footline{
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 4;
     background-color: #2B4293;
 
     color: white;

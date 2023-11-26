@@ -1,17 +1,5 @@
 // script.js
 
-// Function to fetch job data from the server (Node.js)
-function fetchJobData(callback) {
-    // You would typically make an API call to the server here
-    // For simplicity, let's assume the server responds with a JSON array
-
-    // For demonstration purposes, we'll fetch data from the jobs.json file
-    fetch('jobs.json')
-        .then(response => response.json())
-        .then(data => callback(data))
-        .catch(error => console.error('Error fetching job data:', error));
-}
-
 // Function to display job panels
 function displayJobPanels(jobs) {
     const jobPanels = document.getElementById('job-panels');
@@ -37,7 +25,6 @@ function filterJobs(contactType) {
         displayJobPanels(filteredJobs); // Display a maximum of 3 panels
     });
 }
-
 
 // Function to search for jobs
 function searchJobs() {
