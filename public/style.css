@@ -81,7 +81,7 @@ nav {
   align-items: center;
   gap: 10px;
 }
-#job-details{
+#job-details,#big-text{
   justify-content: center;
   background: rgb(255, 255, 255);
   border-radius: 25px;
