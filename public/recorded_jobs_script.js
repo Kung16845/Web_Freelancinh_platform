@@ -33,8 +33,8 @@ function displayRecordedJobs(jobs) {
         const jobListHTML = jobs.map(job => `
             <div class="recorded-job">
             
-                <h3>${job.name}</h3>
                 <img src="${job.image}" alt="${job.name}">
+                <h3>${job.name}</h3>           
                 <p>${job.details}</p>
                 <p>Difficulty: ${job.difficulty}</p>
                 <p>Reward: ${job.Reward}</p>
