@@ -24,32 +24,61 @@ async function fetchRecordedJobs() {
 // Function to display recorded jobs on the page
 function displayRecordedJobs(jobs) {
     const recordedJobsSection = document.getElementById('recorded-jobs');
+    const jobTemplate = document.getElementById('recorded-job-template');
 
     if (jobs.length === 0) {
         // Display a message when there are no recorded jobs
         recordedJobsSection.innerHTML = '<p>No recorded jobs found.</p>';
     } else {
-        // Create HTML for each recorded job
-        const jobListHTML = jobs.map(job => `
-            <div class="recorded-job">
-            
-                <img src="${job.image}" alt="${job.name}">
-                <h3>${job.name}</h3>           
-                <p>${job.details}</p>
-                <p>Difficulty: ${job.difficulty}</p>
-                <p>Reward: ${job.Reward}</p>
-                <p>Ghost Type: ${job['Ghost type']}</p>
-                <!-- Add more job details as needed -->
-                <button onclick="applyForJob(${job.id})">More!</button>
-            </div>
-        `).join('');
+        recordedJobsSection.innerHTML = '';
 
-        recordedJobsSection.innerHTML = jobListHTML;
+        // Create and append job elements to the recordedJobsSection
+        jobs.forEach(job => {
+            const jobElement = createRecordedJobElement(job, jobTemplate);
+            recordedJobsSection.appendChild(jobElement);
+        });
     }
 }
 
+function createRecordedJobElement(job, template) {
+    const jobElement = document.createElement('div');
+    jobElement.className = 'recorded-job';
+    
+    const img = document.createElement('img');
+    img.src = job.image;
+    img.alt = job.name;
+    jobElement.appendChild(img);
+
+    const h3 = document.createElement('h3');
+    h3.textContent = job.name;
+    jobElement.appendChild(h3);
+
+    const details = document.createElement('p');
+    details.textContent = job.details;
+    jobElement.appendChild(details);
+
+    const difficulty = document.createElement('p');
+    difficulty.textContent = `Difficulty: ${job.difficulty}`;
+    jobElement.appendChild(difficulty);
+
+    const reward = document.createElement('p');
+    reward.textContent = `Reward: ${job.Reward}`;
+    jobElement.appendChild(reward);
+
+    const ghostType = document.createElement('p');
+    ghostType.textContent = `Ghost Type: ${job['Ghost type']}`;
+    jobElement.appendChild(ghostType);
+
+    const button = document.createElement('button');
+    button.textContent = 'More!';
+    button.onclick = () => applyForJob(job.id);
+    jobElement.appendChild(button);
+
+    return jobElement;
+}
+
+
 function fetchJobData(callback) {
-    // You would typically make an API call to the server here
     // For simplicity, let's assume the server responds with a JSON array
 
     // For demonstration purposes, we'll fetch data from the jobs.json file

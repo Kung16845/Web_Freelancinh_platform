@@ -2,7 +2,6 @@
 
 // Function to fetch job data from the server (Node.js)
 function fetchJobData(callback) {
-    // You would typically make an API call to the server here
     // For simplicity, let's assume the server responds with a JSON array
 
     // For demonstration purposes, we'll fetch data from the jobs.json file
@@ -14,17 +13,15 @@ function fetchJobData(callback) {
 
 // Function to display job panels
 function displayJobPanels(jobs) {
-    const jobPanels = document.getElementById('job-panels');
-    jobPanels.innerHTML = ''; // Clear previous content
+    const jobPanelsSection = document.getElementById('job-panels');
+    jobPanelsSection.innerHTML = ''; // Clear previous content
 
     jobs.forEach(job => {
         const panel = createJobPanel(job);
-        jobPanels.appendChild(panel);
+        jobPanelsSection.appendChild(panel);
     });
 }
 function fetchJobData(callback) {
-    // You would typically make an API call to the server here
-    // For simplicity, let's assume the server responds with a JSON array
 
     // For demonstration purposes, we'll fetch data from the jobs.json file
     fetch('jobs.json')
@@ -48,7 +45,6 @@ function searchJobs() {
     const searchTerm = document.getElementById('job-search').value.toLowerCase();
 
     fetchJobData(jobs => {
-        // Example: Searching jobs by name
         const searchResults = jobs.filter(job => job.name.toLowerCase().includes(searchTerm));
         displayJobPanels(searchResults);
     });
@@ -75,16 +71,48 @@ function getRandomJobs(jobs, num) {
 function createJobPanel(job) {
     const panel = document.createElement('div');
     panel.className = 'job-panel';
-    panel.innerHTML = `
-        <img src="${job.image}" alt="${job.name}">
-        <h3>${job.name}</h3>
-        <p>${job.details}</p>
-        <p>Difficulty: ${job.difficulty}</p>
-        <p>Reward: ${job.Reward}</p>
-        <p>ContactType: ${job.type}</p>
-        <p>Ghost Type: ${job['Ghost type']}</p>
-        <button onclick="applyForJob(${job.id})">More!</button>
-    `;
+
+    const img = document.createElement('img');
+    img.src = job.image;
+    img.alt = job.name;
+    img.id = 'job-image';
+    panel.appendChild(img);
+
+    const h3 = document.createElement('h3');
+    h3.textContent = job.name;
+    h3.id = 'job-name';
+    panel.appendChild(h3);
+
+    const details = document.createElement('p');
+    details.textContent = job.details;
+    details.id = 'job-details';
+    panel.appendChild(details);
+
+    const difficulty = document.createElement('p');
+    difficulty.textContent = `Difficulty: ${job.difficulty}`;
+    difficulty.id = 'job-difficulty';
+    panel.appendChild(difficulty);
+
+    const reward = document.createElement('p');
+    reward.textContent = `Reward: ${job.Reward}`;
+    reward.id = 'job-reward';
+    panel.appendChild(reward);
+
+    const type = document.createElement('p');
+    type.textContent = `Contact Type: ${job.type}`;
+    type.id = 'job-type';
+    panel.appendChild(type);
+
+    const ghostType = document.createElement('p');
+    ghostType.textContent = `Ghost Type: ${job['Ghost type']}`;
+    ghostType.id = 'job-ghost-type';
+    panel.appendChild(ghostType);
+
+    const button = document.createElement('button');
+    button.textContent = 'More!';
+    button.onclick = () => applyForJob(job.id);
+    panel.appendChild(button);
+
     return panel;
 }
 
@@ -141,6 +169,5 @@ function updateOrDeleteCookie(name, value, expirationDays) {
 
 // Fetch and display 3 random job panels when the page is loaded
 window.onload = function () {
-    
-    fetchJobData(jobs => displayJobPanels(jobs, 3));
+    fetchJobData(jobs => displayJobPanels(jobs));
 };
